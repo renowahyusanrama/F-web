@@ -120,7 +120,7 @@
 
   <main>
     <section class="hero">
-      <div class="card">
+      <div class="card popwatch">
         <div style="display:inline-flex;align-items:center;gap:8px;font-weight:800">
           <span style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#ff3b3b,#a16eff);box-shadow:0 0 18px rgba(255,91,139,.6)"></span>
           Server RPG seru & kompleks
@@ -139,7 +139,7 @@
         </div>
       </div>
 
-      <div class="card" style="display:grid;place-items:center;min-height:260px;background:linear-gradient(180deg,rgba(255,59,59,.08),rgba(161,110,255,.08));border:1px dashed var(--border)">
+      <div class="card popwatch" style="--d:90ms;display:grid;place-items:center;min-height:260px;background:linear-gradient(180deg,rgba(255,59,59,.08),rgba(161,110,255,.08));border:1px dashed var(--border)">
         <div style="text-align:center">
           <div style="font-size:64px;line-height:1">🛡️</div>
           <div style="font-weight:900;margin-top:6px">RPG • PVE • DUNGEON</div>
@@ -191,7 +191,6 @@
       <p class="lead" style="margin:0">Ketuk salah satu nama rank untuk melihat fitur & harga lengkap (halaman khusus).</p>
 
       <div class="rank-grid">
-        <!-- Pastikan file-file rank ini ada di /src/rank/  -->
         <a class="rank-card simple popwatch" href="rank/frostborne.html"><h3>🧊 FROSTBORNE</h3><span class="btn primary">Lihat Detail</span></a>
         <a class="rank-card simple popwatch" href="rank/shadow.html"><h3>🌑 SHADOW</h3><span class="btn primary">Lihat Detail</span></a>
         <a class="rank-card simple popwatch" href="rank/arctic.html"><h3>❄️ ARCTIC</h3><span class="btn primary">Lihat Detail</span></a>
@@ -249,12 +248,13 @@
 
     // ===== POP-IN/OUT on scroll (IntersectionObserver)
     (function(){
+      // termasuk kartu di HERO (bagian atas)
       const targets = [
-        ...document.querySelectorAll('.feat, .rank-card.simple, section.section .card')
+        ...document.querySelectorAll('.hero .card, .feat, .rank-card.simple, section.section .card')
       ];
       targets.forEach((el, i) => {
         el.classList.add('popwatch');
-        el.style.setProperty('--d', `${(i % 8) * 60}ms`); // stagger kecil
+        el.style.setProperty('--d', `${(i % 8) * 60}ms`); // stagger halus
       });
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
