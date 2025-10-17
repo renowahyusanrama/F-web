@@ -1,24 +1,66 @@
-<!doctype html><html lang="id"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>ARCTIC — FrizzyCraft</title>
-<link rel="stylesheet" href="rank-base.css">
-<style>body{background:
-  radial-gradient(900px 700px at 20% 15%, rgba(169,221,255,.25) 0%, transparent 60%),
-  linear-gradient(160deg,#0a1b28,#0f3650 60%, #145a7a);}</style></head>
-<body><div class="container">
-<div class="header"><img src="../image/Frizzy.jpg"><h1>❄️ ARCTIC</h1></div>
-<p class="price">250K IDR | 69 MYR | $16</p>
-<div class="card"><div class="list">
-  <div>✔ Semua SHADOW + Vault Slot: 4</div>
-  <div>✔ Command: /anvil, /enderchest, /tptoggle, /craft, /fly, /feed</div>
-  <div>✔ Sethome: max 15 • AuctionHouse: 15 item</div>
-  <div>✔ Claim Limit: 15 • Area: 9.000 • Lands Trust: 30</div>
-  <div>✔ Bonus: 150K balance • EXP: +30% • Jobs: +30%</div>
+<style>
+:root{--bg1:#06273a;--bg2:#0a4a61;--edge1:#5ef6ff;--edge2:#8ff6ff;--edge3:#b6feff;--text:#e9fbff;--muted:#cff5ff;--border:rgba(255,255,255,.14);--glass1:rgba(255,255,255,.06);--glass2:rgba(255,255,255,.03)}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));overflow:auto;transition:opacity .45s,transform .45s cubic-bezier(.2,.8,.2,1)}
+body.pre-enter{opacity:0;transform:translateY(10px) scale(.985)}body.page-enter{opacity:1;transform:none}body.page-leave{opacity:0;transform:translateY(10px) scale(.985)}
+.wrap{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:64px 16px;position:relative}
+.aur{position:fixed;inset:0;z-index:-2;pointer-events:none;background:
+radial-gradient(1200px 600px at 20% 0%,rgba(139,255,236,.16),transparent 60%),
+radial-gradient(1100px 500px at 80% 0%,rgba(109,255,214,.12),transparent 60%);
+filter:saturate(120%);animation:aur 16s ease-in-out infinite alternate}
+@keyframes aur{50%{filter:hue-rotate(-10deg) saturate(130%) brightness(1.05)}}
+#ice{position:fixed;inset:0;z-index:-1;opacity:.55}
+.card{width:min(1100px,92vw);background:linear-gradient(180deg,var(--glass1),var(--glass2));border:1px solid var(--border);border-radius:24px;padding:30px 26px 32px;backdrop-filter:blur(10px);box-shadow:0 28px 80px rgba(0,0,0,.5);position:relative;isolation:isolate}
+.card::before{content:"";position:absolute;inset:-1px;border-radius:26px;z-index:-1;background:conic-gradient(from 200deg,var(--edge1),var(--edge2),var(--edge3),var(--edge1));filter:blur(10px) saturate(150%);opacity:.22}
+.h{display:flex;align-items:center;justify-content:center;gap:14px}
+.b{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;color:#053243;font-weight:1000;background:linear-gradient(135deg,#bffff2,#86fff7);box-shadow:0 12px 28px rgba(134,255,247,.45)}
+.t{margin:0;font-weight:1000;font-size:clamp(30px,5.8vw,54px);position:relative}
+.t::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-22deg) translateX(-120%);mix-blend-mode:screen;filter:blur(1.2px);animation:shine 3.6s ease-in-out infinite 1s}
+@keyframes shine{to{transform:skewX(-22deg) translateX(120%)}}
+.s{margin:6px 0 14px;text-align:center;font-weight:900;opacity:.92}
+.d{height:1px;margin:10px auto 18px;width:min(920px,92%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)}
+.list{width:min(920px,95%);margin:0 auto;display:grid;gap:12px;color:var(--muted);font-size:clamp(14px,1.6vw,17px)}
+.li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;opacity:0;transform:translateY(10px) scale(.98)}
+.li.show{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
+.ic{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;color:#04323d;font-weight:900;background:linear-gradient(135deg,#cffff5,#86fff7);box-shadow:0 8px 16px rgba(134,255,247,.35)}
+.act{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+.btn{border:none;border-radius:14px;padding:12px 16px;font-weight:900;letter-spacing:.2px;color:#fff;cursor:pointer;position:relative;overflow:hidden}
+.btn.ghost{background:rgba(0,0,0,.28);border:1px solid var(--border);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+.btn.pri{background:linear-gradient(90deg,#ff3b3b,#ff5ea8,#86fff7);box-shadow:0 10px 26px rgba(134,255,247,.35)}
+.btn .rip{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:rgba(255,255,255,.35);animation:rip .6s ease-out}
+@keyframes rip{from{width:0;height:0;opacity:.45}to{width:600px;height:600px;opacity:0}}
+.cpy{opacity:.85;text-align:center;margin-top:20px;font-size:.95rem}
+</style></head>
+<body class="pre-enter">
+<div class="aur"></div><canvas id="ice"></canvas>
+<main class="wrap"><article class="card">
+<header class="h"><div class="b">🧊</div><h1 class="t">ARCTIC</h1></header>
+<p class="s">250K IDR | 69 MYR | $16</p><div class="d"></div>
+<section class="list" id="list"></section>
+<div class="act">
+  <button class="btn ghost" id="backBtn" data-back="../index.html#rank">⬅ Kembali</button>
+  <a class="btn pri" id="vote" target="_blank">🗳️ Vote</a>
+  <a class="btn ghost" target="_blank" href="https://chat.whatsapp.com/CI1g4pnQVbb3t6K63EyUMp?mode=ac_t">💬 WhatsApp</a>
+  <a class="btn ghost" target="_blank" href="https://discord.gg/P4WtVhfP">✨ Discord</a>
 </div>
-<div class="actions">
-  <a href="../index.html#rank" class="btn ghost">⬅ Kembali</a>
-  <a class="btn primary" href="https://minecraft-mp.com/server/347429/vote/?error=13&time=" target="_blank" rel="noopener">🗳️ Vote</a>
-  <a class="btn ghost" href="https://chat.whatsapp.com/CI1g4pnQVbb3t6K63EyUMp?mode=ac_t" target="_blank" rel="noopener">💬 WhatsApp</a>
-  <a class="btn ghost" href="https://discord.gg/P4WtVhfP" target="_blank" rel="noopener">✨ Discord</a>
-</div></div>
-<footer>© FrizzyCraft — ARCTIC Rank</footer></div></body></html>
+<footer class="cpy">© FrizzyCraft — ARCTIC Rank</footer>
+</article></main>
+<script>
+const LINKS={vote:"https://minecraft-mp.com/server/347429/vote/?error=13&time="};
+const ITEMS=[
+ "Semua SHADOW + Vault Slot: 4",
+ "Command: /anvil, /enderchest, /tptoggle, /craft, /fly, /feed",
+ "Sethome: max 15 • AuctionHouse: 15 item",
+ "Claim Limit: 15 • Area: 9.000 • Lands Trust: 30",
+ "Bonus: 150K Balance • EXP: +30% • Jobs: +30%"
+];
+addEventListener('DOMContentLoaded',()=>{requestAnimationFrame(()=>{document.body.classList.add('page-enter');document.body.classList.remove('pre-enter')});render();})
+function render(){const list=document.getElementById('list');ITEMS.forEach((t,i)=>{const el=document.createElement('div');el.className='li';el.style.transitionDelay=`${120+i*70}ms`;el.innerHTML=`<span class="ic">✓</span><span>${t}</span>`;list.appendChild(el);requestAnimationFrame(()=>el.classList.add('show'));});document.getElementById('vote').href=LINKS.vote}
+document.getElementById('backBtn').addEventListener('click',e=>{const url=e.currentTarget.dataset.back||'../index.html#rank';document.body.classList.remove('page-enter');document.body.classList.add('page-leave');setTimeout(()=>location.href=url,340)});
+document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click',e=>{const r=document.createElement('span');r.className='rip';const rt=e.currentTarget.getBoundingClientRect();r.style.left=(e.clientX-rt.left)+'px';r.style.top=(e.clientY-rt.top)+'px';e.currentTarget.appendChild(r);setTimeout(()=>r.remove(),600)}));
+/* floating ice shards */
+const c=document.getElementById('ice'),ctx=c.getContext('2d');let W,H,P=[];function R(){W=c.width=innerWidth;H=c.height=innerHeight}addEventListener('resize',R);R();(function make(){const n=Math.min(70,Math.floor(W/18));P=Array.from({length:n},()=>({x:Math.random()*W,y:Math.random()*H,w:Math.random()*18+10,h:Math.random()*10+6,vx:(Math.random()-.5)*.3,vy:Math.random()*.3+.1,r:Math.random()*Math.PI}))})();(function loop(){ctx.clearRect(0,0,W,H);ctx.strokeStyle="rgba(255,255,255,.35)";for(const p of P){p.x+=p.vx;p.y+=p.vy;p.r+=.002;if(p.x<-20)p.x=W+20;if(p.x>W+20)p.x=-20;if(p.y>H+20)p.y=-20;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.strokeRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore()}requestAnimationFrame(loop)})();
+</script></body></html>

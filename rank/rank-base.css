@@ -1,98 +1,60 @@
 :root{
-  --text:#f0e9ff;
-  --muted:#d9ccff;
+  /* Default, bisa ditimpa per page */
+  --c1:#0b2b4a; /* atas */
+  --c2:#0f3a63; /* bawah */
+  --panel:#0e1622;
+  --text:#e9f0ff;
+  --muted:#c7d3ea;
   --border:rgba(255,255,255,.12);
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;height:100vh;overflow:hidden}
-@supports (height: 100dvh){
-  html,body{height:100dvh}
-}
-html{scroll-behavior:smooth}
+html,body{height:100%;margin:0;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;background:#000}
+
 body{
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-  color:var(--text);
+  background:
+    radial-gradient(1200px 800px at 10% 10%,rgba(255,255,255,.06) 0%,transparent 60%),
+    linear-gradient(180deg,var(--c1),var(--c2));
+  overflow:auto;
 }
 
-/* ===== Kontainer: penuh layar & center ===== */
-.container{
-  width:clamp(340px, 98vw, 1600px);
-  height:100%;
-  margin:0 auto;
-  display:grid;
-  place-items:center;
+.wrap{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:64px 16px;
 }
 
-/* ===== Panel utama: FULL height (tanpa gap) ===== */
-.container>.card{
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+.panel{
+  width:min(1100px,92vw);
+  background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
   border:1px solid var(--border);
-  border-radius:22px;
-  box-shadow:0 14px 48px rgba(0,0,0,.45);
-  backdrop-filter:saturate(110%) blur(6px);
-
-  height:100%;                 /* kunci: isi penuh tinggi kontainer */
-  width:100%;
-  overflow:hidden;             /* cegah overflow bikin scroll */
-  margin:0;
-
-  /* grid: header, price, list (grow), actions, footer nempel bawah */
-  display:grid;
-  grid-template-rows:auto auto 1fr auto auto;
-  align-content:center;
-  gap:clamp(12px,1.6vmin,20px);
-
-  /* padding + safe area DI DALAM panel (tak menambah tinggi total) */
-  padding:
-    max(clamp(20px, 3vmin, 40px), env(safe-area-inset-top))
-    max(clamp(24px, 3.6vmin, 56px), env(safe-area-inset-right))
-    max(clamp(20px, 3vmin, 36px), calc(env(safe-area-inset-bottom) + 8px))
-    max(clamp(24px, 3.6vmin, 56px), env(safe-area-inset-left));
+  border-radius:18px;
+  padding:24px 22px 30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
-/* Blok konten center & lebar nyaman */
-.header,.price,.list,.actions,footer{
-  width:min(1200px, 92%);
-  margin-inline:auto;
+.title{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  font-weight:900;font-size:clamp(22px,4vw,34px);margin:0 0 6px;
 }
+.price{opacity:.9;font-weight:800;text-align:center;margin-bottom:12px}
 
-/* ===== Tipografi besar & responsif ===== */
-.header{
-  display:flex;align-items:center;justify-content:center;
-  gap:clamp(12px,1.8vmin,18px);text-align:center
-}
-.header img{width:clamp(52px,5vmin,76px);height:clamp(52px,5vmin,76px);border-radius:12px;object-fit:cover}
-h1{margin:0;font-weight:900;letter-spacing:.3px;line-height:1.03;font-size:clamp(30px,5vmin,58px)}
-.price{text-align:center;font-weight:900;opacity:.95;margin-top:-6px;font-size:clamp(18px,2.4vmin,24px)}
+.list{max-width:900px;margin:0 auto;display:grid;gap:10px;color:var(--muted);font-size:clamp(14px,1.5vw,16px)}
+.list .li{display:flex;gap:8px}
+.list .li::before{content:"✓";opacity:.9;margin-top:0.2em}
 
-.list{
-  display:grid;gap:clamp(10px,1.6vmin,18px);
-  color:var(--muted);text-align:left;
-  font-size:clamp(16px,2.4vmin,22px);
-  line-height:clamp(1.5,1.1 + 0.25vmin,1.8);
-  width:min(1000px,92%);
-}
-
-/* ===== Tombol besar & responsif ===== */
-.actions{
-  display:flex;gap:clamp(12px,1.6vmin,16px);
-  flex-wrap:wrap;justify-content:center;margin-top:clamp(8px,1.2vmin,14px)
-}
-.btn{
-  border:none;border-radius:16px;
-  padding:clamp(12px,1.9vmin,18px) clamp(18px,2.8vmin,28px);
-  font-weight:800;letter-spacing:.2px;color:#fff;cursor:pointer;
-  font-size:clamp(16px,2.2vmin,19px);
-  min-width:clamp(170px,23vmin,280px);text-align:center
-}
+.actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.btn{appearance:none;border:none;border-radius:12px;padding:10px 14px;font-weight:800;letter-spacing:.2px;color:#fff;cursor:pointer}
+.btn.ghost{background:rgba(0,0,0,.25);border:1px solid var(--border)}
 .btn.primary{background:linear-gradient(90deg,#ff3b3b,#ff5ea8,#a16eff)}
-.btn.ghost{background:rgba(0,0,0,.3);border:1px solid var(--border)}
-.btn:active{transform:translateY(1px)}
 
-/* Footer nempel bawah panel (tanpa celah) */
-footer{margin-top:auto;text-align:center;color:var(--muted);font-size:clamp(.95rem,1.6vmin,1.1rem)}
+.copy{opacity:.8;text-align:center;margin-top:18px;font-size:.95rem}
 
-/* Tweak responsif tombol */
-@media (max-width:640px){ .actions .btn{flex:1 1 48%;min-width:unset} }
-@media (max-width:400px){ .actions .btn{flex:1 1 100%} }
+/* Animasi masuk lembut */
+html, body{
+  transition: opacity .38s ease, transform .38s cubic-bezier(.2,.8,.2,1);
+}
+body.pre-enter{ opacity:0; transform: translateY(10px) scale(.985); }
+body.page-enter{ opacity:1; transform:none; }

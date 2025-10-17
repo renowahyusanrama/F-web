@@ -6,30 +6,28 @@
   <title>FrizzyCraft — Legendary Adventures</title>
   <meta name="description" content="Server Minecraft RPG: senjata legend, dungeon boss, gacha, sistem gems, skin, armor lengkap, dan fitur kompleks." />
   <style>
-    :root{
-      --bg1:#220022; --bg2:#3b0b3b; --bg3:#5a0a3a;
-      --text:#f0e9ff; --muted:#cdbdf5; --border:rgba(255,255,255,.12);
-    }
+    :root{ --text:#f0e9ff; --muted:#cdbdf5; --border:rgba(255,255,255,.12); }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;color:var(--text);background:var(--bg1)}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;color:var(--text);background:#000}
     a{text-decoration:none;color:inherit}
 
-    /* Background */
-    body::before{content:"";position:fixed;inset:-10%;z-index:-2;
-      background:
-        radial-gradient(1200px 800px at 10% 10%,#4d0a58 0%,transparent 60%),
-        radial-gradient(1000px 1000px at 90% 20%,#7a104a 0%,transparent 60%),
-        radial-gradient(800px 900px at 40% 80%,#2c0146 0%,transparent 60%),
-        linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));
-      filter:saturate(110%)}
-    body::after{content:"";position:fixed;inset:-20px;z-index:-3;
-      background:linear-gradient(120deg,rgba(44,0,69,.65),rgba(161,110,255,.28)), url('image/Frizzy.jpg') center/cover no-repeat;
-      filter:blur(14px) saturate(110%);opacity:.55;transform:scale(1.06)}
+    /* ===== BACKGROUND PENUH (NO BLUR) ===== */
+    body::before{content:none}
+    body::after{
+      content:""; position:fixed; inset:0; z-index:-1;
+      background:url('image/End.jpg') center/cover no-repeat fixed;
+      opacity:1; filter:none;
+      pointer-events:none;
+    }
 
-    /* Header */
-    header{position:sticky;top:0;backdrop-filter:blur(8px);
-      background:linear-gradient(180deg,rgba(18,7,19,.7),rgba(18,7,19,.2) 80%,transparent);
-      border-bottom:1px solid var(--border);z-index:10}
+    /* ===== HEADER LEBIH TRANSPARAN (biar foto kelihatan di atas) ===== */
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter:blur(6px);
+      /* tipiskan gradien */
+      background:linear-gradient(180deg, rgba(10,10,18,.2) 0%, rgba(10,10,18,.2) 45%, rgba(10,10,18,0) 90%);
+      border-bottom:1px solid rgba(85, 16, 16, 0.08);
+    }
     .nav{max-width:1100px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:16px}
     .brand{display:flex;align-items:center;gap:10px;font-weight:900}
     .brand span{font-size:1.05rem}
@@ -38,68 +36,53 @@
     .nav a.link{padding:8px 10px;border-radius:10px;color:var(--muted)}
     .nav a.link:hover{background:rgba(255,255,255,.06);color:#fff}
 
-    /* Hero */
+    /* ===== KACA TIPIS DI ATAS FOTO ===== */
+    .card{
+      background:linear-gradient(180deg, rgba(14,14,20,.48), rgba(14,14,20,.34));
+      border:1px solid var(--border); border-radius:18px; padding:18px;
+      box-shadow:0 10px 40px rgba(0,0,0,.45);
+    }
     .hero{max-width:1100px;margin:22px auto 0;padding:24px 16px 10px;display:grid;grid-template-columns:1.2fr .8fr;gap:22px;align-items:center}
-    .card{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:18px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.45)}
     .title{font-size:clamp(28px,5.6vw,54px);line-height:1.04;margin:0 0 8px;font-weight:900}
     .subtitle{color:var(--muted);margin:0 0 18px}
-    .ipbox{display:flex;align-items:center;gap:10px;background:#160916;border:1px dashed var(--border);border-radius:12px;padding:10px 12px}
+    .ipbox{display:flex;align-items:center;gap:10px;background:rgba(13,13,22,.66);border:1px dashed var(--border);border-radius:12px;padding:10px 12px}
     .ip{font-weight:900;letter-spacing:.6px}
     .btn{appearance:none;border:none;border-radius:14px;padding:12px 16px;font-weight:800;letter-spacing:.2px;color:#fff;cursor:pointer;display:inline-flex;align-items:center;gap:10px}
     .btn.primary{background:linear-gradient(90deg,#ff3b3b,#ff5ea8,#a16eff)}
-    .btn.ghost{background:#1a0a1d;border:1px solid var(--border);color:var(--muted)}
+    .btn.ghost{background:rgba(18,18,28,.64);border:1px solid var(--border);color:var(--muted)}
     .btn:active{transform:translateY(1px)}
     .cta{display:flex;gap:10px;flex-wrap:wrap}
 
-    /* Section */
     .section{max-width:1100px;margin:28px auto;padding:0 16px}
     h2.sec{font-size:clamp(22px,4.4vw,34px);margin:0 0 10px}
     p.lead{color:var(--muted);margin:0 0 16px}
 
-    /* Grid fitur */
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-    .feat{grid-column:span 4;position:relative;border-radius:16px;padding:16px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--border);min-height:120px}
+    .feat{grid-column:span 4;border-radius:16px;padding:16px;background:linear-gradient(180deg,rgba(14,14,20,.48),rgba(14,14,20,.34));border:1px solid var(--border);min-height:120px}
     .feat h3{margin:4px 0 6px;font-size:1.1rem}
     .feat p{margin:0;color:var(--muted)}
-    @media (max-width: 900px){ .hero{grid-template-columns:1fr}; .grid .feat{grid-column:span 6} }
+    @media (max-width: 900px){ .hero{grid-template-columns:1fr} .grid .feat{grid-column:span 6} }
     @media (max-width: 560px){ .grid .feat{grid-column:1/-1} }
 
-    /* Rank index */
     .rank-section{max-width:1100px;margin:28px auto;padding:0 16px}
     .rank-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:14px}
-    .rank-card{grid-column:span 6;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:16px;padding:16px}
+    .rank-card{grid-column:span 6;background:linear-gradient(180deg,rgba(14,14,20,.48),rgba(14,14,20,.34));border:1px solid var(--border);border-radius:16px;padding:16px}
     .rank-card.simple{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .rank-card h3{margin:0 0 6px;font-size:1.15rem}
     @media(max-width:900px){.rank-card{grid-column:span 12}}
 
-    /* ===== POP-IN / POP-OUT on scroll ===== */
-    .popwatch{
-      opacity:0;
-      transform:translateY(22px) scale(.96);
-      filter:blur(4px);
-      transition:
-        opacity .45s ease,
-        transform .45s cubic-bezier(.2,.8,.2,1),
-        filter .45s ease;
-      will-change:opacity,transform,filter;
-    }
-    .popwatch.in{
-      opacity:1;
-      transform:none;
-      filter:blur(0);
-      transition-delay:var(--d,0ms);
-    }
-    .popwatch.out{
-      opacity:0;
-      transform:translateY(14px) scale(.985);
-      filter:blur(3px);
-      transition-delay:0ms;
-    }
+    /* Pop in/out on scroll */
+    .popwatch{opacity:0;transform:translateY(22px) scale(.96);filter:blur(4px);
+      transition:opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1), filter .45s ease;will-change:opacity,transform,filter}
+    .popwatch.in{opacity:1;transform:none;filter:blur(0);transition-delay:var(--d,0ms)}
+    .popwatch.out{opacity:0;transform:translateY(14px) scale(.985);filter:blur(3px);transition-delay:0ms}
     @media (prefers-reduced-motion: reduce){
-      .popwatch,.popwatch.in,.popwatch.out{
-        transition:none!important;opacity:1!important;transform:none!important;filter:none!important;
-      }
+      .popwatch,.popwatch.in,.popwatch.out{transition:none!important;opacity:1!important;transform:none!important;filter:none!important}
     }
+
+    /* Soft leave saat klik rank */
+    html,body{transition:opacity .28s ease, transform .28s ease}
+    body.page-leave{opacity:0;transform:translateY(8px) scale(.995)}
 
     footer{margin:40px 0 24px;color:var(--muted);text-align:center;font-size:.95rem}
   </style>
@@ -107,7 +90,6 @@
 <body>
   <header>
     <nav class="nav">
-      <!-- Ganti src logo kalau perlu -->
       <div class="brand"><img class="brand-logo" src="image/Frizzy.jpg" alt="FrizzyCraft logo"/><span>FrizzyCraft</span></div>
       <a class="link" href="#fitur">Fitur</a>
       <a class="link" href="#mulai">Cara Main</a>
@@ -125,21 +107,18 @@
           <span style="width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,#ff3b3b,#a16eff);box-shadow:0 0 18px rgba(255,91,139,.6)"></span>
           Server RPG seru & kompleks
         </div>
-        <h1 class="title">Hadapi Dungeon Boss, Koleksi Senjata Legend, <span style="background:linear-gradient(90deg,#ff3b3b,#ff5ea8,#a16eff);-webkit-background-clip:text;background-clip:text;color:transparent">Bangun Karaktermu!</span></h1>
+        <h1 class="title">Hadapi Dungeon Boss, Koleksi Senjata Legend,
+          <span style="background:linear-gradient(90deg,#ff3b3b,#ff5ea8,#a16eff);-webkit-background-clip:text;background-clip:text;color:transparent">Bangun Karaktermu!</span>
+        </h1>
         <p class="subtitle">Sistem gacha, gems (ATK, crit, defense), skin senjata, armor lengkap, misi & event mingguan.</p>
-
-        <div class="ipbox">
-          <div class="ip" id="ip">frizzycraft.net</div>
-          <button class="btn primary" id="copyBtn">Salin IP</button>
-        </div>
-
+        <div class="ipbox"><div class="ip" id="ip">frizzycraft.net</div><button class="btn primary" id="copyBtn">Salin IP</button></div>
         <div class="cta">
           <button class="btn primary" onclick="scrollToId('#fitur')">Lihat Fitur Unggulan</button>
           <button class="btn ghost" onclick="scrollToId('#mulai')">Cara Gabung</button>
         </div>
       </div>
 
-      <div class="card popwatch" style="--d:90ms;display:grid;place-items:center;min-height:260px;background:linear-gradient(180deg,rgba(255,59,59,.08),rgba(161,110,255,.08));border:1px dashed var(--border)">
+      <div class="card popwatch" style="--d:90ms;display:grid;place-items:center;min-height:260px;border:1px dashed var(--border)">
         <div style="text-align:center">
           <div style="font-size:64px;line-height:1">🛡️</div>
           <div style="font-weight:900;margin-top:6px">RPG • PVE • DUNGEON</div>
@@ -189,7 +168,6 @@
     <section id="rank" class="rank-section">
       <h2 class="sec">💠 Rank FrizzyCraft</h2>
       <p class="lead" style="margin:0">Ketuk salah satu nama rank untuk melihat fitur & harga lengkap (halaman khusus).</p>
-
       <div class="rank-grid">
         <a class="rank-card simple popwatch" href="rank/frostborne.html"><h3>🧊 FROSTBORNE</h3><span class="btn primary">Lihat Detail</span></a>
         <a class="rank-card simple popwatch" href="rank/shadow.html"><h3>🌑 SHADOW</h3><span class="btn primary">Lihat Detail</span></a>
@@ -246,30 +224,34 @@
       a.addEventListener('click', e=>{ e.preventDefault(); scrollToId(a.getAttribute('href')); });
     });
 
-    // ===== POP-IN/OUT on scroll (IntersectionObserver)
+    // Pop in/out on scroll
     (function(){
-      // termasuk kartu di HERO (bagian atas)
       const targets = [
         ...document.querySelectorAll('.hero .card, .feat, .rank-card.simple, section.section .card')
       ];
       targets.forEach((el, i) => {
         el.classList.add('popwatch');
-        el.style.setProperty('--d', `${(i % 8) * 60}ms`); // stagger halus
+        el.style.setProperty('--d', `${(i % 8) * 60}ms`);
       });
       const io = new IntersectionObserver((entries)=>{
         entries.forEach(entry=>{
           const el = entry.target;
-          if(entry.isIntersecting){
-            el.classList.add('in');
-            el.classList.remove('out');
-          }else{
-            el.classList.remove('in');
-            el.classList.add('out');
-          }
+          if(entry.isIntersecting){ el.classList.add('in'); el.classList.remove('out'); }
+          else{ el.classList.remove('in'); el.classList.add('out'); }
         });
       }, { root:null, rootMargin:'0px 0px -10% 0px', threshold:0.18 });
       targets.forEach(el => io.observe(el));
     })();
+
+    // Soft leave saat klik kartu rank
+    document.querySelectorAll('.rank-card.simple').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const href = a.getAttribute('href');
+        document.body.classList.add('page-leave');
+        setTimeout(()=>{ window.location.href = href; }, 280);
+      });
+    });
   </script>
 </body>
 </html>

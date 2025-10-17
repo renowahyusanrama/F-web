@@ -1,24 +1,276 @@
-<!doctype html><html lang="id"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>FROSTBORNE — FrizzyCraft</title>
-<link rel="stylesheet" href="rank-base.css">
-<style>body{background:
-  radial-gradient(900px 700px at 15% 10%, rgba(105,202,255,.28) 0%, transparent 60%),
-  linear-gradient(160deg,#0b1020,#152e5a 60%, #1b437a);}</style></head>
-<body><div class="container">
-<div class="header"><img src="../image/Frizzy.jpg"><h1>🧊 FROSTBORNE</h1></div>
-<p class="price">50K IDR | $5</p>
-<div class="card"><div class="list">
-  <div>✔ Prefix Rank • Vault Slot: 2</div>
-  <div>✔ Command: /enderchest, /nick</div>
-  <div>✔ Sethome: max 5 • AuctionHouse: 5 item</div>
-  <div>✔ Claim Limit: 5 • Area: 3.000 • Lands Trust: 10</div>
-  <div>✔ Bonus: 50K Balance • EXP Areliums: +10%</div>
-</div>
-<div class="actions">
-  <a href="../index.html#rank" class="btn ghost">⬅ Kembali</a>
-  <a class="btn primary" href="https://minecraft-mp.com/server/347429/vote/?error=13&time=" target="_blank" rel="noopener">🗳️ Vote</a>
-  <a class="btn ghost" href="https://chat.whatsapp.com/CI1g4pnQVbb3t6K63EyUMp?mode=ac_t" target="_blank" rel="noopener">💬 WhatsApp</a>
-  <a class="btn ghost" href="https://discord.gg/P4WtVhfP" target="_blank" rel="noopener">✨ Discord</a>
-</div></div>
-<footer>© FrizzyCraft — FROSTBORNE Rank</footer></div></body></html>
+<style>
+/* ======== THEME ======== */
+:root{
+  --bg1:#061a2c;      /* midnight blue */
+  --bg2:#0c2f4f;      /* deep blue */
+  --edge1:#8cf3ff;    /* icy neon */
+  --edge2:#55d7ff;
+  --edge3:#bffbff;
+  --text:#eaf8ff;
+  --muted:#cfe8f7;
+  --border:rgba(255,255,255,.14);
+  --glass1:rgba(255,255,255,.06);
+  --glass2:rgba(255,255,255,.025);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
+  background:
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  overflow:auto;
+  transition:opacity .45s ease, transform .45s cubic-bezier(.2,.8,.2,1);
+}
+body.pre-enter{opacity:0;transform:translateY(10px) scale(.985)}
+body.page-enter{opacity:1;transform:none}
+body.page-leave{opacity:0;transform:translateY(10px) scale(.985)}
+
+.wrap{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:64px 16px;position:relative}
+
+/* ======== BACKGROUND AURORA + MOUNTAINS ======== */
+.aurora{
+  position:fixed;inset:0;pointer-events:none;z-index:-2;
+  background:
+    radial-gradient(1200px 600px at 20% 0%, rgba(140,243,255,.18), transparent 60%),
+    radial-gradient(1100px 500px at 80% 0%, rgba(85,215,255,.12), transparent 60%),
+    radial-gradient(1000px 600px at 40% 0%, rgba(191,251,255,.10), transparent 60%);
+  animation:aurora 16s ease-in-out infinite alternate;
+  filter:saturate(115%);
+}
+@keyframes aurora{
+  50%{filter:hue-rotate(12deg) saturate(130%) brightness(1.05)}
+}
+
+/* parallax mountains (pure CSS) */
+.mountain{
+  position:fixed;left:0;right:0;bottom:0;height:42vh;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(180deg,transparent,rgba(0,0,0,.15) 35%,rgba(0,0,0,.4)),
+    conic-gradient(from 180deg at 20% 100%, #1a3a55 0 25%, transparent 0 100%),
+    conic-gradient(from 180deg at 55% 100%, #17425e 0 25%, transparent 0 100%),
+    conic-gradient(from 180deg at 85% 100%, #144b66 0 25%, transparent 0 100%);
+  transform:translateZ(0);
+}
+.mountain::before,.mountain::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:46vh;z-index:-1;opacity:.65;
+  background:
+    conic-gradient(from 180deg at 15% 100%, #0e3550 0 25%, transparent 0 100%),
+    conic-gradient(from 180deg at 45% 100%, #0c3f5a 0 25%, transparent 0 100%),
+    conic-gradient(from 180deg at 75% 100%, #0a4761 0 25%, transparent 0 100%);
+  filter:blur(2px);
+}
+.mountain::after{height:50vh;opacity:.35;filter:blur(6px)}
+
+/* snow particles */
+#snow{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.6}
+
+/* ======== CARD ======== */
+.card{
+  width:min(1100px,92vw); position:relative;
+  background:linear-gradient(180deg,var(--glass1),var(--glass2));
+  border:1px solid var(--border); border-radius:24px;
+  padding:32px 26px 34px; backdrop-filter:blur(10px);
+  box-shadow:0 28px 80px rgba(0,0,0,.5); isolation:isolate;
+}
+.card::before{
+  content:""; position:absolute; inset:-1px; border-radius:26px; z-index:-1;
+  background:conic-gradient(from 200deg,var(--edge1),var(--edge2),var(--edge3),var(--edge1));
+  filter:blur(10px) saturate(150%); opacity:.22;
+}
+
+/* header */
+.header{display:flex;align-items:center;justify-content:center;gap:14px}
+.badge{
+  width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-weight:1000;
+  color:#062235;background:linear-gradient(135deg,#bffbff,#8cf3ff);
+  box-shadow:0 14px 30px rgba(140,243,255,.45)
+}
+.title{
+  margin:0;font-weight:1000;letter-spacing:.3px;font-size:clamp(32px,6vw,56px);position:relative
+}
+/* shimmer + subtle crack */
+.title::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent),
+    repeating-linear-gradient(100deg,transparent 0 32px, rgba(255,255,255,.08) 32px 34px, transparent 34px 68px);
+  transform:skewX(-22deg) translateX(-120%); mix-blend-mode:screen; filter:blur(1.5px);
+  animation:shine 3.8s ease-in-out infinite 1s;
+}
+@keyframes shine{to{transform:skewX(-22deg) translateX(120%)}}
+
+.sub{margin:6px 0 16px;text-align:center;font-weight:900;opacity:.95}
+
+/* divider */
+.divider{height:1px;margin:12px auto 18px;width:min(920px,92%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);filter:drop-shadow(0 0 12px rgba(255,255,255,.22))}
+
+/* list */
+.list{width:min(920px,95%);margin:0 auto;display:grid;gap:14px;color:var(--muted);font-size:clamp(15px,1.7vw,18px)}
+.li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;opacity:0;transform:translateY(10px) scale(.98)}
+.li.show{opacity:1;transform:none;transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.2,1)}
+.icon{
+  width:26px;height:26px;border-radius:8px;display:grid;place-items:center;color:#063048;font-weight:1000;
+  background:linear-gradient(135deg,#d1feff,#8cf3ff); box-shadow:0 10px 20px rgba(140,243,255,.35)
+}
+
+/* actions */
+.actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+.btn{border:none;border-radius:16px;padding:13px 18px;font-weight:1000;letter-spacing:.2px;color:#fff;cursor:pointer;position:relative;overflow:hidden}
+.btn.ghost{background:rgba(0,0,0,.28);border:1px solid var(--border);box-shadow:0 10px 22px rgba(0,0,0,.25)}
+.btn.primary{background:linear-gradient(90deg,#ff3b3b,#ff5ea8,#8cf3ff);box-shadow:0 12px 28px rgba(140,243,255,.35)}
+.btn:hover{transform:translateY(-1px)} .btn:active{transform:translateY(0)}
+.btn .rip{position:absolute;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;background:rgba(255,255,255,.35);animation:rip .6s ease-out}
+@keyframes rip{from{width:0;height:0;opacity:.45}to{width:600px;height:600px;opacity:0}}
+
+.copy{opacity:.85;text-align:center;margin-top:22px;font-size:.95rem}
+</style>
+</head>
+<body class="pre-enter">
+
+<div class="aurora"></div>
+<canvas id="snow"></canvas>
+<div class="mountain"></div>
+
+<main class="wrap">
+  <article class="card" id="card">
+    <header class="header">
+      <div class="badge">❄</div>
+      <h1 class="title">FROSTBORNE</h1>
+    </header>
+    <p class="sub">50K IDR | $5</p>
+    <div class="divider"></div>
+
+    <section class="list" id="list">
+      <!-- item diisi via JS agar bisa animasi stagger -->
+    </section>
+
+    <div class="actions">
+      <button class="btn ghost" id="backBtn" data-back="../index.html#rank">⬅ Kembali</button>
+      <button class="btn primary" id="voteBtn">🗳️ Vote</button>
+      <a class="btn ghost" id="waBtn" target="_blank" rel="noopener" href="https://chat.whatsapp.com/CI1g4pnQVbb3t6K63EyUMp?mode=ac_t">💬 WhatsApp</a>
+      <a class="btn ghost" id="dcBtn" target="_blank" rel="noopener" href="https://discord.gg/P4WtVhfP">✨ Discord</a>
+    </div>
+
+    <footer class="copy">© FrizzyCraft — FROSTBORNE Rank</footer>
+  </article>
+</main>
+
+<script>
+/* ====== LINKS & CONTENT ====== */
+const LINKS = {
+  vote:"https://minecraft-mp.com/server/347429/vote/?error=13&time="
+};
+const LIST_ITEMS = [
+  "Prefix Rank • Vault Slot: 2",
+  "Command: <code>/enderchest</code>, <code>/nick</code>",
+  "Sethome: max 5 • AuctionHouse: 5 item",
+  "Claim Limit: 5 • Area: 3.000 • Lands Trust: 10",
+  "Bonus: 50K Balance • EXP Areliums: +10%"
+];
+
+/* ====== PAGE ENTER ====== */
+addEventListener('DOMContentLoaded',()=>{
+  requestAnimationFrame(()=>{
+    document.body.classList.add('page-enter');
+    document.body.classList.remove('pre-enter');
+  });
+  renderList(); snowStart();
+});
+
+/* ====== STAGGER LIST ====== */
+function renderList(){
+  const list=document.getElementById('list');
+  LIST_ITEMS.forEach((t,i)=>{
+    const el=document.createElement('div');
+    el.className='li';
+    el.style.transitionDelay = `${120 + i*80}ms`;
+    el.innerHTML=`<span class="icon">✓</span><span>${t}</span>`;
+    list.appendChild(el);
+    requestAnimationFrame(()=> el.classList.add('show'));
+  });
+}
+
+/* ====== RIPPLE + CONFETTI ====== */
+function ripple(e){
+  const r=document.createElement('span'); r.className='rip';
+  const rect=e.currentTarget.getBoundingClientRect();
+  r.style.left=(e.clientX-rect.left)+'px';
+  r.style.top=(e.clientY-rect.top)+'px';
+  e.currentTarget.appendChild(r); setTimeout(()=>r.remove(),600);
+}
+document.querySelectorAll('.btn').forEach(b=>b.addEventListener('click',ripple));
+
+document.getElementById('voteBtn').addEventListener('click',()=>{
+  confettiBurst();
+  window.open(LINKS.vote,'_blank');
+});
+
+/* mini confetti (tanpa lib) */
+function confettiBurst(){
+  const n=22, root=document.body;
+  for(let i=0;i<n;i++){
+    const s=document.createElement('i');
+    s.style.position='fixed'; s.style.left='50%'; s.style.top='52%';
+    s.style.width='8px'; s.style.height='14px';
+    s.style.background=`hsl(${Math.random()*360},90%,60%)`;
+    s.style.transform=`translate(-50%,-50%) rotate(${Math.random()*360}deg)`;
+    s.style.borderRadius='2px'; s.style.pointerEvents='none'; s.style.zIndex=5;
+    root.appendChild(s);
+    const ang=Math.random()*Math.PI*2, sp= (Math.random()*6+4);
+    const vx=Math.cos(ang)*sp, vy=Math.sin(ang)*sp - 4;
+    let x=innerWidth/2, y=innerHeight/2, t=0;
+    (function step(){
+      t+=0.016; x+=vx; y+=vy + t*2.2;
+      s.style.left=x+'px'; s.style.top=y+'px';
+      s.style.opacity = String(1 - t/1.2);
+      if(t<1.2) requestAnimationFrame(step); else s.remove();
+    })();
+  }
+}
+
+/* ====== BACK TRANSITION ====== */
+document.getElementById('backBtn').addEventListener('click',(e)=>{
+  const url=e.currentTarget.dataset.back||'../index.html#rank';
+  document.body.classList.remove('page-enter');
+  document.body.classList.add('page-leave');
+  setTimeout(()=> location.href=url, 360);
+});
+
+/* ====== SNOW CANVAS ====== */
+const cvs = document.getElementById('snow'), ctx = cvs.getContext('2d');
+let W,H,flakes=[];
+function resize(){W=cvs.width=innerWidth; H=cvs.height=innerHeight}
+addEventListener('resize',resize); resize();
+function snowStart(){
+  const n=Math.min(200, Math.floor(W*H/9000));
+  flakes = Array.from({length:n},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    r:Math.random()*1.8+0.6, w:Math.random()*0.8+0.2,
+    vy:Math.random()*0.7+0.35, sway:Math.random()*2*Math.PI
+  }));
+  loop();
+}
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  for(const f of flakes){
+    f.sway += 0.01;
+    f.x += Math.sin(f.sway)*f.w;
+    f.y += f.vy;
+    if(f.y>H+10){ f.y=-10; f.x=Math.random()*W; }
+    const g=ctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.r*4);
+    g.addColorStop(0,'rgba(191,251,255,.95)'); g.addColorStop(1,'rgba(191,251,255,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill();
+  }
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
